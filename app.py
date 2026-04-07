@@ -11,12 +11,12 @@ def index():
 
 @app.route('/db_test')
 def db_test():
-    conn = psycopg2.connect("postgresql://flask_lab_db_ijxs_user:y2qMtgXX852yW4IlqzJ2PC0MxGTnYQLr@dpg-d7a7293uibrs73fralo0-a/flask_lab_db_ijxs")
+    conn = psycopg2.connect(DB_URL)
     conn.close()
     return "Database Connection Successful"
 
 @app.route('/db_create')
-def db_create():
+def creating():
     conn = psycopg2.connect(DB_URL)
     cur = conn.cursor()
     cur.execute('''
@@ -33,7 +33,7 @@ def db_create():
     return "Basketball Table Successfully Created"
 
 @app.route('/db_insert')
-def db_insert():
+def inserting():
     conn = psycopg2.connect(DB_URL)
     cur = conn.cursor()
     cur.execute('''
@@ -47,31 +47,32 @@ def db_insert():
     ''')
     conn.commit()
     conn.close()
-    return "Basketball Table Populated"
+    return "Basketball Table Successfully Populated"
 
 @app.route('/db_select')
-def db_select():
+def selecting():
     conn = psycopg2.connect(DB_URL)
     cur = conn.cursor()
     cur.execute('SELECT * FROM Basketball;')
     records = cur.fetchall()
     conn.close()
 
-    response = '<table border="1"><tr><th>First</th><th>Last</th><th>City</th><th>Name</th><th>Number</th></tr>'
-    for row in records:
-        response += '<tr>'
-        for field in row:
-            response += '<td>' + str(field) + '</td>'
-        response += '</tr>'
-    response += '</table>'
-    return response
+    response_string = ""
+    response_string += "<table>"
+    for player in records:
+        response_string += '<tr>'
+        for info in player:
+            response_string += "<td>{}</td>".format(info)
+        response_string += "</tr>"
+    response_string += "</table>"
+    return response_string
 
 @app.route('/db_drop')
-def db_drop():
+def dropping():
     conn = psycopg2.connect(DB_URL)
     cur = conn.cursor()
     cur.execute('DROP TABLE Basketball;')
     conn.commit()
     conn.close()
-    return "Basketball Table Dropped"
+    return "Basketball Table Successfully Dropped"
 
