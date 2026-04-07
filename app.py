@@ -42,8 +42,7 @@ def inserting():
         ('Jayson', 'Tatum', 'Boston', 'Celtics', 0),
         ('Stephen', 'Curry', 'San Francisco', 'Warriors', 30),
         ('Nikola', 'Jokic', 'Denver', 'Nuggets', 15),
-        ('Kawhi', 'Leonard', 'Los Angeles', 'Clippers', 2),
-        ('YOUR_FIRST', 'YOUR_LAST', 'CU Boulder', 'YOUR_TEAM', 3308);
+        ('Kawhi', 'Leonard', 'Los Angeles', 'Clippers', 2);
     ''')
     conn.commit()
     conn.close()
